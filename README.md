@@ -10,10 +10,9 @@
 
 검은 창에 큰 글씨로 현재 시각을 표시하고, 그 아래에 한국어 날짜를 보여 줍니다. Xcode 프로젝트 없이 Swift 소스 파일 하나와 셸 스크립트만으로 빌드합니다.
 
-```
-3:36:29
-2026년 11월 3일, 화요일
-```
+<p align="center">
+  <img src="docs/screenshot.png" width="420" alt="MiniClock 실행 화면">
+</p>
 
 ## 기능
 
