@@ -6,6 +6,12 @@
 
 <p align="center">항상 화면 위에 떠 있는 macOS용 미니 데스크톱 시계</p>
 
+<p align="center">
+  <a href="https://github.com/ic4r/mini-clock/releases/latest"><img src="https://img.shields.io/github/v/release/ic4r/mini-clock?label=release" alt="Latest release"></a>
+  <a href="https://github.com/ic4r/mini-clock/releases"><img src="https://img.shields.io/github/downloads/ic4r/mini-clock/total?label=downloads" alt="Downloads"></a>
+  <img src="https://img.shields.io/badge/macOS-14%2B-black?logo=apple" alt="macOS 14+">
+</p>
+
 ---
 
 검은 창에 큰 글씨로 현재 시각을 표시하고, 그 아래에 한국어 날짜를 보여 줍니다. Xcode 프로젝트 없이 Swift 소스 파일 하나와 셸 스크립트만으로 빌드합니다.
