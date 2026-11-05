@@ -10,7 +10,13 @@ mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources"
 [ -f AppIcon.icns ] || swift make_icon.swift
 cp AppIcon.icns "$APP/Contents/Resources/"
 
-swiftc -O -parse-as-library MiniClock.swift -o "$APP/Contents/MacOS/MiniClock"
+# 유니버설 바이너리(arm64 + x86_64)
+TMP=$(mktemp -d)
+trap 'rm -rf "$TMP"' EXIT
+for ARCH in arm64 x86_64; do
+  swiftc -O -parse-as-library -target "$ARCH-apple-macos14" MiniClock.swift -o "$TMP/MiniClock-$ARCH"
+done
+lipo -create "$TMP/MiniClock-arm64" "$TMP/MiniClock-x86_64" -o "$APP/Contents/MacOS/MiniClock"
 
 cat > "$APP/Contents/Info.plist" <<'EOF'
 <?xml version="1.0" encoding="UTF-8"?>

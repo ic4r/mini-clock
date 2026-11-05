@@ -28,6 +28,20 @@
 - macOS 14 이상
 - Swift 컴파일러(`swiftc`): Xcode 또는 Command Line Tools(`xcode-select --install`)
 
+## 설치(빌드된 앱)
+
+[Releases](https://github.com/ic4r/mini-clock/releases) 페이지에서 최신 `MiniClock-vX.Y.zip`을 내려받습니다. Apple Silicon과 Intel Mac을 모두 지원하는 유니버설 바이너리입니다.
+
+1. zip 파일의 압축을 풀고 `MiniClock.app`을 `/Applications`로 옮깁니다.
+2. Apple 공증(notarization)을 받지 않은 앱이므로, 터미널에서 격리 속성을 제거한 뒤 실행합니다.
+
+```bash
+xattr -dr com.apple.quarantine /Applications/MiniClock.app
+open /Applications/MiniClock.app
+```
+
+> 격리 속성을 제거하지 않으면 "손상되었기 때문에 열 수 없습니다" 경고가 표시됩니다.
+
 ## 빌드와 실행
 
 ```bash
@@ -43,7 +57,16 @@ open MiniClock.app
 cp -R MiniClock.app /Applications/
 ```
 
-> ad-hoc 서명만 적용되어 있으므로, 다른 Mac으로 옮겨 실행하면 Gatekeeper 경고가 표시될 수 있습니다. 이때는 Finder에서 앱을 우클릭한 뒤 **열기**를 선택합니다.
+> ad-hoc 서명만 적용되어 있으므로, 다른 Mac으로 옮겨 실행하면 Gatekeeper 경고가 표시될 수 있습니다. 이때는 위의 `xattr` 명령으로 격리 속성을 제거합니다.
+
+## 릴리스 배포
+
+```bash
+./build.sh
+ditto -c -k --keepParent MiniClock.app MiniClock-v1.0.zip
+git tag v1.0 && git push origin v1.0
+gh release create v1.0 MiniClock-v1.0.zip --title "MiniClock v1.0" --notes-file <릴리스 노트 파일>
+```
 
 ## 빌드 과정
 
@@ -53,7 +76,7 @@ flowchart LR
     B -- 아니오 --> C[make_icon.swift<br/>CoreGraphics로 아이콘 생성<br/>iconutil로 .icns 변환]
     B -- 예 --> D[Resources에 아이콘 복사]
     C --> D
-    D --> E[swiftc -O -parse-as-library<br/>MiniClock.swift 컴파일]
+    D --> E[swiftc arm64 / x86_64 각각 컴파일<br/>lipo로 유니버설 바이너리 결합]
     E --> F[Info.plist 작성]
     F --> G[codesign ad-hoc 서명]
     G --> H[MiniClock.app]
@@ -64,7 +87,7 @@ flowchart LR
 | 파일 | 설명 |
 | --- | --- |
 | `MiniClock.swift` | 앱 본체(SwiftUI). 시계 화면과 창 설정을 담고 있습니다. |
-| `build.sh` | `.app` 번들 생성, `Info.plist` 작성, ad-hoc 서명을 수행합니다. |
+| `build.sh` | 유니버설 바이너리 빌드, `.app` 번들 생성, `Info.plist` 작성, ad-hoc 서명을 수행합니다. |
 | `make_icon.swift` | 시계 모양 아이콘을 그려서 `AppIcon.icns`를 생성합니다. |
 | `AppIcon.icns` | 앱 아이콘입니다. |
 
