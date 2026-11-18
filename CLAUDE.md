@@ -17,6 +17,6 @@
 ## 참고
 
 - SourceKit 이 `'main' attribute cannot be used ...` 를 표시하지만, 빌드는 `-parse-as-library` 플래그로 정상 동작한다.
-- 창 레벨은 `.floating` (항상 위), 날짜 형식은 `yyyy년 M월 d일, EEEE`.
+- 창 레벨은 `.floating` (항상 위), 시각 형식은 24시간제 `HH:mm:ss`, 날짜 형식은 `yyyy년 M월 d일, EEEE`.
 - `MiniClock.app` 은 빌드 산출물이므로 git 에서 제외한다.
 - 릴리스: `ditto -c -k --keepParent MiniClock.app MiniClock-vX.Y.zip` 로 압축 후 `gh release create` 로 업로드한다. zip 은 git 에서 제외한다.

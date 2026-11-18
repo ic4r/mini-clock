@@ -22,7 +22,7 @@
 
 ## 기능
 
-- 12시간제 시각(`h:mm:ss`)을 1초마다 갱신합니다.
+- 24시간제 시각(`HH:mm:ss`)을 1초마다 갱신합니다.
 - 날짜를 `yyyy년 M월 d일, EEEE` 형식으로 표시합니다.
 - 창이 항상 다른 창 위에 떠 있으며(floating), 전체 화면 앱 위에도 표시됩니다.
 - 타이틀바를 숨겼으며, 창 배경을 끌어서 위치를 옮길 수 있습니다.
@@ -101,7 +101,7 @@ flowchart LR
 
 | 바꿀 항목 | 위치 |
 | --- | --- |
-| 시각 형식(예: 24시간제 `HH:mm:ss`) | `MiniClock.swift`의 `timeFmt` |
+| 시각 형식(예: 12시간제 `h:mm:ss`) | `MiniClock.swift`의 `timeFmt` |
 | 날짜 형식 | `MiniClock.swift`의 `dateFmt` |
 | 글꼴 | `MiniClock.swift`의 `.custom("Futura-Medium", ...)` |
 | 항상 위 해제 | `MiniClock.swift`의 `w.level = .floating` 줄 삭제 |

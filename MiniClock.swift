@@ -36,7 +36,7 @@ struct ClockView: View {
     private static let timeFmt: DateFormatter = {
         let f = DateFormatter()
         f.locale = Locale(identifier: "ko_KR")
-        f.dateFormat = "h:mm:ss"
+        f.dateFormat = "HH:mm:ss"
         return f
     }()
 
@@ -50,7 +50,7 @@ struct ClockView: View {
     var body: some View {
         GeometryReader { geo in
             // 창 크기에 맞춰 글자 크기를 비례 조정한다
-            let size = min(geo.size.width / 4.2, geo.size.height / 2.2)
+            let size = min(geo.size.width / 4.8, geo.size.height / 2.2)
             TimelineView(.periodic(from: .now, by: 1)) { ctx in
                 VStack(spacing: size * 0.02) {
                     Text(Self.timeFmt.string(from: ctx.date))
